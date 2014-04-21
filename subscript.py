@@ -17,6 +17,11 @@ within paragraphs will not.
 
 import markdown
 
+try:
+    from markdown.util import etree, AtomicString
+except:
+    from markdown import etree, AtomicString
+
 # Global Vars
 SUBSCRIPT_RE = r'(\~)([^\~]*)\2'  # the number is subscript~2~
 
@@ -27,8 +32,8 @@ class SubscriptPattern(markdown.inlinepatterns.Pattern):
         
         text = subsc
         
-        el = markdown.etree.Element("sub")
-        el.text = markdown.AtomicString(text)
+        el = etree.Element('sub')
+        el.text = AtomicString(text)
         return el
 
 class SubscriptExtension(markdown.Extension):
